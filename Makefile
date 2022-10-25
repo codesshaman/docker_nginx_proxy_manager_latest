@@ -2,6 +2,9 @@ name = docker_configuration
 all:
 	@printf "Запуск конфигурации ${name}...\n"
 	@docker-compose -f ./docker-compose.yml up -d
+build:
+        @printf "Building configuration ${name}...\n"
+        @docker-compose -f ./docker-compose.yml up -d --build
 down:
 	@printf "Остановка конфигурации ${name}...\n"
 	@docker-compose -f ./docker-compose.yml down
@@ -17,4 +20,4 @@ fclean:
 #	@docker system prune --all --force --volumes
 #	@docker network prune --force
 #	@docker volume prune --force
-.PHONY	: all down re clean fclean
+.PHONY	: all build down re clean fclean
