@@ -1,4 +1,4 @@
-name = docker_configuration
+name = nginx proxy manager
 all:
 	@printf "Запуск конфигурации ${name}...\n"
 	@docker-compose -f ./docker-compose.yml up -d
