@@ -39,3 +39,5 @@ Build container:
 Email:    admin@example.com
 Password: changeme
 ```
+
+Change it befor using!
