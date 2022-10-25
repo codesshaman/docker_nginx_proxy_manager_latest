@@ -3,7 +3,7 @@ all:
 	@printf "Запуск конфигурации ${name}...\n"
 	@docker-compose -f ./docker-compose.yml up -d
 build:
-        @printf "Building configuration ${name}...\n"
+        @printf "Сборка конфигурации ${name}...\n"
         @docker-compose -f ./docker-compose.yml up -d --build
 down:
 	@printf "Остановка конфигурации ${name}...\n"
