@@ -23,6 +23,9 @@ help:
 	@echo -e "$(WARN_COLOR)- make				: Launch configuration"
 	@echo -e "$(WARN_COLOR)- make build			: Building configuration"
 	@echo -e "$(WARN_COLOR)- make down			: Stopping configuration"
+	@echo -e "$(WARN_COLOR)- make logs			: Show container logs"
+	@echo -e "$(WARN_COLOR)- make logdb		: Show database logs"
+	@echo -e "$(WARN_COLOR)- make ps			: Show configuration containers"
 	@echo -e "$(WARN_COLOR)- make re			: Rebuild configuration"
 	@echo -e "$(WARN_COLOR)- make clean			: Cleaning configuration$(NO_COLOR)"
 
@@ -30,13 +33,29 @@ build:
 	@printf "$(OK_COLOR)==== Building configuration ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml up -d --build
 
+conn:
+	@printf "$(OK_COLOR)==== Connecting to container ${name}... ====$(NO_COLOR)\n"
+	@docker-compose -f ./docker-compose.yml exec npm sh
+
+connroot:
+	@printf "$(OK_COLOR)==== Connecting with root ${name}... ====$(NO_COLOR)\n"
+	@docker-compose -f ./docker-compose.yml exec --user root npm sh
+
 down:
 	@printf "$(ERROR_COLOR)==== Stopping configuration ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml down
 
-re:	down
+logs:
+	@printf "$(WARN_COLOR)==== Show logs ${name}... ====$(NO_COLOR)\n"
+	@docker-compose -f ./docker-compose.yml logs npm
+
+logdb:
+	@printf "$(WARN_COLOR)==== Show logs ${name}... ====$(NO_COLOR)\n"
+	@docker-compose -f ./docker-compose.yml logs npmdb
+
+re:
 	@printf "$(OK_COLOR)==== Rebuild configuration ${name}... ====$(NO_COLOR)\n"
-	@docker-compose -f ./docker-compose.yml up -d --build
+	@docker-compose -f ./docker-compose.yml up -d --no-deps --build npm
 
 ps:
 	@printf "$(BLUE)==== View configuration ${name}... ====$(NO_COLOR)\n"
@@ -53,4 +72,4 @@ fclean:
 	# @docker network prune --force
 	# @docker volume prune --force
 
-.PHONY	: all help build down re ps clean fclean
+.PHONY	: all help build conn down re ps clean fclean
