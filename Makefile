@@ -53,9 +53,9 @@ logdb:
 	@printf "$(WARN_COLOR)==== Show logs ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml logs npmdb
 
-re:
-	@printf "$(OK_COLOR)==== Rebuild configuration ${name}... ====$(NO_COLOR)\n"
-	@docker-compose -f ./docker-compose.yml up -d --no-deps --build npm
+re:	down
+	@printf "Пересборка конфигурации ${name}...\n"
+	@docker-compose -f ./docker-compose.yml up -d --build
 
 ps:
 	@printf "$(BLUE)==== View configuration ${name}... ====$(NO_COLOR)\n"
