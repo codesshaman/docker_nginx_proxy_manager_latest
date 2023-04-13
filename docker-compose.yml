@@ -44,5 +44,5 @@ services:
 
 networks:
   default:
-    external: true
-    name: $NPM_NETWORK_NAME
+    external:
+      name: $NPM_NETWORK_NAME
