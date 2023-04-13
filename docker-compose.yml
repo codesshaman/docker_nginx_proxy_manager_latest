@@ -36,7 +36,7 @@ services:
       MYSQL_DATABASE: ${DB_MYSQL_NAME}
       MYSQL_USER: ${DB_MYSQL_USER}
       MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD}
-    container_name: $NPM_DATAVASE_NAME
+    container_name: $NPM_DATABASE_NAME
     volumes:
       - ./mysql:/var/lib/mysql:z
     networks:
