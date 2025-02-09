@@ -22,10 +22,15 @@ help:
 	@echo -e "$(OK_COLOR)==== All commands of ${name} configuration ====$(NO_COLOR)"
 	@echo -e "$(WARN_COLOR)- make				: Launch configuration"
 	@echo -e "$(WARN_COLOR)- make build			: Building configuration"
+	@echo -e "$(WARN_COLOR)- make conn			: Connect to container"
+	@echo -e "$(WARN_COLOR)- make connroot			: Connect to container as root"
 	@echo -e "$(WARN_COLOR)- make down			: Stopping configuration"
+	@echo -e "$(WARN_COLOR)- make env			: Create environment"
+	@echo -e "$(WARN_COLOR)- make git			: Set user and mail for git"
 	@echo -e "$(WARN_COLOR)- make logs			: Show container logs"
-	@echo -e "$(WARN_COLOR)- make logdb		: Show database logs"
+	@echo -e "$(WARN_COLOR)- make logdb			: Show database logs"
 	@echo -e "$(WARN_COLOR)- make ps			: Show configuration containers"
+	@echo -e "$(WARN_COLOR)- make push			: Push changes to the github"
 	@echo -e "$(WARN_COLOR)- make re			: Rebuild configuration"
 	@echo -e "$(WARN_COLOR)- make clean			: Cleaning configuration$(NO_COLOR)"
 
@@ -45,6 +50,19 @@ down:
 	@printf "$(ERROR_COLOR)==== Stopping configuration ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml down
 
+env:
+	@printf "$(ERROR_COLOR)==== Create environment file for ${name}... ====$(NO_COLOR)\n"
+	@if [ -f .env ]; then \
+		echo "$(ERROR_COLOR).env file already exists!$(NO_COLOR)"; \
+	else \
+		cp .env.example .env; \
+		echo "$(GREEN).env file successfully created!$(NO_COLOR)"; \
+	fi
+
+git:
+	@printf "$(YELLOW)==== Set user name and email to git for ${name} repo... ====$(NO_COLOR)\n"
+	@bash gituser.sh
+
 logs:
 	@printf "$(WARN_COLOR)==== Show logs ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml logs npm
@@ -60,6 +78,9 @@ re:	down
 ps:
 	@printf "$(BLUE)==== View configuration ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml ps
+
+push:
+	@bash push.sh
 
 clean: down
 	@printf "$(ERROR_COLOR)==== Cleaning configuration ${name}... ====$(NO_COLOR)\n"
