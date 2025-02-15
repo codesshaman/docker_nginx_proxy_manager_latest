@@ -23,6 +23,7 @@ help:
 	@echo -e "$(WARN_COLOR)- make				: Launch configuration"
 	@echo -e "$(WARN_COLOR)- make build			: Building configuration"
 	@echo -e "$(WARN_COLOR)- make conn			: Connect to container"
+	@echo -e "$(WARN_COLOR)- make condb			: Connect to database"
 	@echo -e "$(WARN_COLOR)- make connroot			: Connect to container as root"
 	@echo -e "$(WARN_COLOR)- make down			: Stopping configuration"
 	@echo -e "$(WARN_COLOR)- make env			: Create environment"
@@ -41,6 +42,10 @@ build:
 conn:
 	@printf "$(OK_COLOR)==== Connecting to container ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml exec npm sh
+
+condb:
+	@printf "$(OK_COLOR)==== Connecting to container ${name}... ====$(NO_COLOR)\n"
+	@docker-compose -f ./docker-compose.yml exec npmdb sh
 
 connroot:
 	@printf "$(OK_COLOR)==== Connecting with root ${name}... ====$(NO_COLOR)\n"
