@@ -82,10 +82,10 @@ logdb:
 	@docker-compose -f ./docker-compose.yml logs npmdb
 
 net:
-	@printf "$(YELLOW)==== Создание сети для конфигурации ${name}... ====$(NO_COLOR)\n"
+	@printf "$(YELLOW)==== Create network ${NPM_NETWORK}... ====$(NO_COLOR)\n"
 	@docker network create \
-	  --driver=bridge \
-	  $(NPM_NETWORK)
+	--driver=bridge \
+	$(NPM_NETWORK)
 
 re:	down
 	@printf "Пересборка конфигурации ${name}...\n"
