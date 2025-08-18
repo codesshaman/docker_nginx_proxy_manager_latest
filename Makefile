@@ -13,6 +13,10 @@ PURPLE='\e[1;35m'       # Purple
 CYAN='\e[1;36m'         # Cyan
 WHITE='\e[1;37m'        # White
 UCYAN='\e[4;36m'        # Cyan
+ifneq (,$(wildcard .env))
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
 
 all:
 	@printf "Launch configuration ${name}...\n"
@@ -30,6 +34,7 @@ help:
 	@echo -e "$(WARN_COLOR)- make git			: Set user and mail for git"
 	@echo -e "$(WARN_COLOR)- make logs			: Show container logs"
 	@echo -e "$(WARN_COLOR)- make logdb			: Show database logs"
+	@echo -e "$(WARN_COLOR)- make net			: Create network"
 	@echo -e "$(WARN_COLOR)- make ps			: Show configuration containers"
 	@echo -e "$(WARN_COLOR)- make push			: Push changes to the github"
 	@echo -e "$(WARN_COLOR)- make re			: Rebuild configuration"
@@ -75,6 +80,12 @@ logs:
 logdb:
 	@printf "$(WARN_COLOR)==== Show logs ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml logs npmdb
+
+net:
+	@printf "$(YELLOW)==== Создание сети для конфигурации ${name}... ====$(NO_COLOR)\n"
+	@docker network create \
+	  --driver=bridge \
+	  $(NPM_NETWORK)
 
 re:	down
 	@printf "Пересборка конфигурации ${name}...\n"

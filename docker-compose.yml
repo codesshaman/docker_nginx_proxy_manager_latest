@@ -45,4 +45,4 @@ services:
 networks:
   default:
     external:
-      name: $NPM_NETWORK_NAME
+      name: $NPM_NETWORK
