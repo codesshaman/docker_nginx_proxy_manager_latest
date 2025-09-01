@@ -9,21 +9,25 @@ git clone https://github.com/codesshaman/docker_nginx_proxy_manager_latest.git n
 ``cd nginxproxymanager``
 
 
-Change .env_sample passwords and usernames:
+Make .env from .env_example
 
-``nano .env_sample``
+``make env``
 
-Rename .env_sample to .env:
+Change passwords and username in .env:
 
-``mv .env_sample .env``
+``nano .env``
 
-Open ports:
+Open ports (if necessary):
 
 ```
 sudo ufw allow 81 && \
 sudo ufw allow 80 && \
 sudo ufw allow 443
 ```
+
+Create network:
+
+``make net``
 
 Build container:
 
