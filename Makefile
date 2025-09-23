@@ -26,6 +26,7 @@ help:
 	@echo -e "$(OK_COLOR)==== All commands of ${name} configuration ====$(NO_COLOR)"
 	@echo -e "$(WARN_COLOR)- make				: Launch configuration"
 	@echo -e "$(WARN_COLOR)- make build			: Building configuration"
+	@echo -e "$(WARN)- make config				: Вывод docker-compose config"
 	@echo -e "$(WARN_COLOR)- make conn			: Connect to container"
 	@echo -e "$(WARN_COLOR)- make condb			: Connect to database"
 	@echo -e "$(WARN_COLOR)- make connroot			: Connect to container as root"
@@ -43,6 +44,10 @@ help:
 build:
 	@printf "$(OK_COLOR)==== Building configuration ${name}... ====$(NO_COLOR)\n"
 	@docker-compose -f ./docker-compose.yml up -d --build
+
+config:
+	@printf "$(ERROR_COLOR)==== Соединение с контейнером ${REGISTRY_NAME}... ====$(NO_COLOR)\n"
+	@docker-compose config
 
 conn:
 	@printf "$(OK_COLOR)==== Connecting to container ${name}... ====$(NO_COLOR)\n"
